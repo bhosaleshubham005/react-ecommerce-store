@@ -16,3 +16,17 @@ router.get("/products", async (req, res) => {
 });
 
 module.exports = router;
+
+router.post("/products", async (req, res) => {
+  try {
+    const product = new Product(req.body);
+
+    const savedProduct = await product.save();
+
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+});
